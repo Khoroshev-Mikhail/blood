@@ -6,12 +6,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 
+
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={store}>    
+      {/** Подключаю стили через CDN, иначе ошибка компиляции, нет желания разбираться */}  
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2/dist/semantic.min.css" /> 
       <App />
     </Provider>
   </React.StrictMode>
