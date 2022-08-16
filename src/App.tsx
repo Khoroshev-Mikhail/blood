@@ -1,54 +1,50 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import { Dropdown, Grid, Menu, Segment } from 'semantic-ui-react'
 import Main from './Components/Main';
 import { Container } from 'semantic-ui-react'
+import { useAppDispatch } from './app/hooks';
+import { subjectsThunk } from './app/store';
 
 function App() {
+  const dispatch = useAppDispatch()
   const [activeItem, setActiveItem] = useState<string>('bio')
   function handleItemClick(e:any, { name }: any){
     setActiveItem(name)
   }
+  useEffect(()=>{
+    //Подгружаем список субъектов
+    dispatch(subjectsThunk())
+  })
   return (
     <Container>
       <Grid>
-        <Grid.Column width={4}>
-          <Menu pointing secondary vertical>
+        <Grid.Column width={1}>
+          <Menu text vertical>
             <Menu.Item
-              name='bio'
+              name='Меню1'
               active={activeItem === 'bio'}
               onClick={handleItemClick}
             />
             <Menu.Item
-              name='pics'
+              name='Меню2'
               active={activeItem === 'pics'}
               onClick={handleItemClick}
             />
             <Menu.Item
-              name='companies'
+              name='Меню3'
               active={activeItem === 'companies'}
               onClick={handleItemClick}
             />
             <Menu.Item
-              name='links'
+              name='Меню4'
               active={activeItem === 'links'}
               onClick={handleItemClick}
             />
-            <Dropdown item text='Display Options'>
-              <Dropdown.Menu>
-                <Dropdown.Header>Text Size</Dropdown.Header>
-                <Dropdown.Item>Small</Dropdown.Item>
-                <Dropdown.Item>Medium</Dropdown.Item>
-                <Dropdown.Item>Large</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
           </Menu>
         </Grid.Column>
 
-        <Grid.Column stretched width={12}>
-          <Segment>
-            This is an stretched grid column. This segment will always match the
-            tab height
-          </Segment>
+        <Grid.Column stretched width={15}>
+          <Main />
         </Grid.Column>
       </Grid>
     </Container>

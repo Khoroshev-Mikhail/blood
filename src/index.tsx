@@ -11,13 +11,11 @@ const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
-  <React.StrictMode>
     <Provider store={store}>    
       {/** Подключаю стили через CDN, иначе ошибка компиляции, нет желания разбираться */}  
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2/dist/semantic.min.css" /> 
       <App />
     </Provider>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

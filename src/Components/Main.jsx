@@ -1,26 +1,13 @@
-import React from "react";
-import { SenchaGrid, Column } from "@sencha/sencha-grid";
 import "@sencha/sencha-grid/dist/themes/grui.css";
+import { Grid, Table } from "semantic-ui-react";
+import MainTable from "./MainTable";
+import SubjectsSearch from "./Subjects";
 
-export default class App extends React.Component {
-  render() {
-    const data = [
-      {
-        name: "Cheesecake Factory",
-        sweetsName: "Pie",
-        description: "Classic crust and filled with yummy cherries.",
-      },
-    ];
+export default function Main(){
     return (
-      <SenchaGrid data={data}>
-        <Column componentType="Column" field="" text="Sweet" width={400}>
-          <Column field="sweetsName" text="Sweets" width={100} />
-          <Column field="name" text="Pudding" width={150} />
-          <Column field="name" text="Cakes" width={150} />
-        </Column>
-        <Column field="name" text="Name" width={200} />
-        <Column field="description" flex={1} text="Description" />
-      </SenchaGrid>
+      <Grid>
+        <SubjectsSearch />
+        <MainTable />
+      </Grid>
     );
-  }
 }
