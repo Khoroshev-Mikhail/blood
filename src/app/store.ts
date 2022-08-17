@@ -27,14 +27,13 @@ export const subjectsSlice = createSlice({
 })
 
 
-
 export const companiesThunk = createAsyncThunk(
   'companiesThunk',
-  async function (npp: number){
-      const response = await fetch('http://localhost:3001/getCompaniesByNpp', {
+  async function (r1022: number | string){ //Уточнить тип
+      const response = await fetch('http://localhost:3001/getCompanyBySubject', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json;charset=utf-8' }, 
-          body: JSON.stringify({npp})
+          body: JSON.stringify({r1022})
       })
       const data = await response.json()
       return data
@@ -56,21 +55,32 @@ export type Company = {
   alb_max: number,
   alb_cena: number,
 }
-const initialCompnies: Company[] = []
-export const companySlice = createSlice({
+
+const initialCompanies: Company[] = []
+export const companiesSlice = createSlice({
   name: 'companySlice',
-  initialState: initialCompnies,
+  initialState: initialCompanies,
   reducers: {},
   extraReducers: (builder) => {
-
+    builder.addCase(companiesThunk.fulfilled, (_, action: PayloadAction<Company[]>) => action.payload)
   }
 })
 
-
+//Проверить тип
+export const currentR1022SubjectSlice = createSlice({
+  name: 'currentSubjectSLice',
+  initialState: null,
+  reducers: {
+    setCurrrentSubject: (_, action) => action.payload
+  }
+})
+export const { setCurrrentSubject } = currentR1022SubjectSlice.actions
 
 export const store = configureStore({
   reducer: {
     subjects: subjectsSlice.reducer,
+    companies: companiesSlice.reducer,
+    currentIdSubject: currentR1022SubjectSlice.reducer,
   },
 });
 
