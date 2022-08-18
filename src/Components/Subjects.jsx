@@ -3,7 +3,7 @@ import { useEffect, useId, useState } from "react";
 import { Grid, Table } from "semantic-ui-react";
 import { Input } from 'semantic-ui-react'
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { companiesThunk, setCurrrentSubject } from "../app/store";
+import { companiesThunk, setCurrrentR1022, setCurrrentSubject } from "../app/store";
 
 export default function SubjectsSearch(props){
     const dispatch = useAppDispatch()
@@ -35,7 +35,7 @@ export default function SubjectsSearch(props){
                     <Table.Cell>
                         <span 
                             style={{width: '100%', cursor: 'pointer'} /* Надо переписать */}    
-                            onClick={ () => { dispatch(companiesThunk(el.p00)) } }>{el.p01}</span>
+                            onClick={ () => {  dispatch(companiesThunk(el.p00)) } }>{el.p01}</span>
                     </Table.Cell>
                 </Table.Row>
                 )

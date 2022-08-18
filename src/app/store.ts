@@ -40,7 +40,7 @@ export const companiesThunk = createAsyncThunk(
   }
 )
 export type Company = {
-  id: number,
+  id?: number,
   npp: number,
   r1022: string,
   naim_org: string,
@@ -67,21 +67,49 @@ export const companiesSlice = createSlice({
 })
 
 //Проверить тип
-export const currentR1022SubjectSlice = createSlice({
-  name: 'currentSubjectSLice',
+export const currentR1022Slice = createSlice({
+  name: 'currentR1022',
   initialState: null,
   reducers: {
-    setCurrrentSubject: (_, action) => action.payload
+    setCurrrentR1022: (_, action) => action.payload
   }
 })
-export const { setCurrrentSubject } = currentR1022SubjectSlice.actions
+export const { setCurrrentR1022 } = currentR1022Slice.actions
+
+const setCurrentR1022MW = (store: any) => (next: any) => (action: any) => {
+  const result = next(action)
+  if(action.type == 'companiesThunk/fulfilled'){
+    //console.log('Кладем текущий r1022 в глобальный стейт, чтобы сетать его при добавлении новой компании и обновлении текущего списка компаний по фильтру == r1022')
+    store.dispatch(setCurrrentR1022(action.meta.arg))
+  }
+  if(action.type == 'setNewCompanyThunk/fulfilled'){
+    //console.log('Обновляем список компаний')
+    store.dispatch(companiesThunk(store.getState().currentR1022))
+  }
+  return result
+}
+
+export const setNewCompanyThunk = createAsyncThunk(
+  'setNewCompanyThunk',
+  async function (newCompany: Company){ 
+      const response = await fetch('http://localhost:3001/setNewCompany', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json;charset=utf-8' }, 
+          body: JSON.stringify({...newCompany})
+      })
+      const data = await response.json()
+      return data
+  }
+)
+
 
 export const store = configureStore({
   reducer: {
     subjects: subjectsSlice.reducer,
     companies: companiesSlice.reducer,
-    currentIdSubject: currentR1022SubjectSlice.reducer,
+    currentR1022: currentR1022Slice.reducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(setCurrentR1022MW),
 });
 
 export type AppDispatch = typeof store.dispatch;
