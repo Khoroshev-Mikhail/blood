@@ -49,7 +49,7 @@ export default function MainTable(){
             {visible1 && <AddNewCompany />}
             {visible2 && idSelected && <UpdateNewCompany id={idSelected} />}
             
-            <SenchaGrid store={companies} style={{height: '1700px', background: 'none'}} 
+            <SenchaGrid store={companies} style={{height: '500px', background: 'none'}} 
               onSelect={function (_ref) {
                 var records = _ref.records, selected = _ref.selected;
                 setIdSelected(records[0].id)
