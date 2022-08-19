@@ -38,12 +38,14 @@ export default function SubjectsSearch(props){
                 <Table.Body>
                     {localSubjects.map((el, i) => {
                         return (
-                            <Table.Row 
+                            <Table.Row
                                 key={id + i} 
                                 onClick={()=>{
                                     dispatch(companiesThunk(el.p00))
-                                    setIsActive(el.p00)}} style={{background: r1022 === el.p00 ? 'Gainsboro' : 'none', cursor: 'pointer'}
-                                }>
+                                    setIsActive(el.p00)}
+                                }
+                                style={{background: r1022 === el.p00 ? 'Gainsboro' : 'none', cursor: 'pointer'}}
+                                >
                                 <Table.Cell>
                                     {el.p01}
                                 </Table.Cell>
