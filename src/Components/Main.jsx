@@ -1,5 +1,5 @@
 import "@sencha/sencha-grid/dist/themes/grui.css";
-import { Grid, Table } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import MainTable from "./MainTable";
 import SubjectsSearch from "./Subjects";
 

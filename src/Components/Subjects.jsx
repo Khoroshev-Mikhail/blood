@@ -11,6 +11,7 @@ export default function SubjectsSearch(props){
     const subjects = useAppSelector(state => state.subjects)
     const [localSubjects, setLocalSubjects] = useState(subjects)
     const [search, setSearch] = useState('')
+    const [isActive, setIsActive] = useState()
     
     //В Документации sencha-grid не открывается информация по фильтрации "data" 
     //- поэтому реализую через дублирования глобального стейта в локальный с последующей фильтрацией и рендерерингом оного
@@ -31,11 +32,13 @@ export default function SubjectsSearch(props){
                 {localSubjects.map((el, i) => {
                 //Добавить полосу прокрутки
                 return (
-                    <Table.Row key={id + i}>
+                    <Table.Row key={id + i} 
+                        onClick={()=>{
+                            dispatch(companiesThunk(el.p00))
+                            setIsActive(el.p00)}} style={{background: isActive === el.p00 ? 'Gainsboro' : 'none', cursor: 'pointer'}
+                        }>
                     <Table.Cell>
-                        <span 
-                            style={{width: '100%', cursor: 'pointer'} /* Надо переписать */}    
-                            onClick={ () => {  dispatch(companiesThunk(el.p00)) } }>{el.p01}</span>
+                        {el.p01}
                     </Table.Cell>
                 </Table.Row>
                 )

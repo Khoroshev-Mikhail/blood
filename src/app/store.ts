@@ -82,7 +82,7 @@ const setCurrentR1022MW = (store: any) => (next: any) => (action: any) => {
     //console.log('Кладем текущий r1022 в глобальный стейт, чтобы сетать его при добавлении новой компании и обновлении текущего списка компаний по фильтру == r1022')
     store.dispatch(setCurrrentR1022(action.meta.arg))
   }
-  if(action.type == 'setNewCompanyThunk/fulfilled'){
+  if(action.type == 'setNewCompanyThunk/fulfilled' || action.type == 'deleteCompanyThunk/fulfilled' ){
     //console.log('Обновляем список компаний')
     store.dispatch(companiesThunk(store.getState().currentR1022))
   }
@@ -96,6 +96,18 @@ export const setNewCompanyThunk = createAsyncThunk(
           method: 'POST',
           headers: { 'Content-Type': 'application/json;charset=utf-8' }, 
           body: JSON.stringify({...newCompany})
+      })
+      const data = await response.json()
+      return data
+  }
+)
+export const deleteCompanyThunk = createAsyncThunk(
+  'deleteCompanyThunk',
+  async function (id: number){ 
+      const response = await fetch('http://localhost:3001/deleteCompany', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json;charset=utf-8' }, 
+          body: JSON.stringify({id})
       })
       const data = await response.json()
       return data

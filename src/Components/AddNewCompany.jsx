@@ -126,7 +126,7 @@ export default function AddNewCompany(){
                     onChange={onChangeInputs}
                 />
             </Form.Group>
-            <Form.Button content='Добавить' />
+            <Form.Button content='Сохранить' />
         </Form>
         </Segment>
     )
