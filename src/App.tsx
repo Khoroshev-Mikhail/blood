@@ -10,11 +10,11 @@ function App() {
   //Глобальные методы
   const dispatch = useAppDispatch()
 
-
+  //Эффекты
   useEffect(()=>{
     //Подгружаем список субъектов
     dispatch(subjectsThunk())
-  })
+  },[])
   return (
     <Container>
       <Grid>

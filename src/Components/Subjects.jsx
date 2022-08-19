@@ -6,9 +6,14 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { companiesThunk } from "../app/store";
 
 export default function SubjectsSearch(props){
+    //Глобальные методы
     const dispatch = useAppDispatch()
-    const id = useId()
+
+    //Глобальный стейт
     const subjects = useAppSelector(state => state.subjects)
+
+    //Локальный стейт
+    const id = useId()
     const [localSubjects, setLocalSubjects] = useState(subjects)
     const [search, setSearch] = useState('')
     const [isActive, setIsActive] = useState()
@@ -27,24 +32,26 @@ export default function SubjectsSearch(props){
     return (
         <Grid.Column width={3}>
             <Input size='small' icon='search' placeholder='Search...' style={{width: '100%'}} onChange={(e)=>{setSearch(e.target.value)}}/>
+            <div style={{height: '700px', overflowY: 'scroll'}}> {/*Данный костыль добавялет полосу прокрутки*/}
             <Table celled>
-            <Table.Body>
-                {localSubjects.map((el, i) => {
-                //Добавить полосу прокрутки
-                return (
-                    <Table.Row key={id + i} 
-                        onClick={()=>{
-                            dispatch(companiesThunk(el.p00))
-                            setIsActive(el.p00)}} style={{background: isActive === el.p00 ? 'Gainsboro' : 'none', cursor: 'pointer'}
-                        }>
-                    <Table.Cell>
-                        {el.p01}
-                    </Table.Cell>
-                </Table.Row>
-                )
-                })}
-            </Table.Body>
+                <Table.Body>
+                    {localSubjects.map((el, i) => {
+                        return (
+                            <Table.Row 
+                                key={id + i} 
+                                onClick={()=>{
+                                    dispatch(companiesThunk(el.p00))
+                                    setIsActive(el.p00)}} style={{background: isActive === el.p00 ? 'Gainsboro' : 'none', cursor: 'pointer'}
+                                }>
+                                <Table.Cell>
+                                    {el.p01}
+                                </Table.Cell>
+                            </Table.Row>
+                        )
+                    })}
+                </Table.Body>
             </Table>
+            </div>            
        </Grid.Column>
     )
 

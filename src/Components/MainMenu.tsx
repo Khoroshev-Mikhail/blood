@@ -4,8 +4,9 @@ import { Grid, Menu } from 'semantic-ui-react'
 export default function MainMenu(props: any){
     //Локальный стейт
     const [activeItem, setActiveItem] = useState<string>('bio')
+
+    //Методы для рендеринга
     function handleItemClick(_:any, { name }: any){
-      console.log(name)
         setActiveItem(name)
     }
     return (
@@ -13,22 +14,22 @@ export default function MainMenu(props: any){
           <Menu text vertical>
             <Menu.Item
               name='Меню1'
-              active={activeItem === 'bio'}
+              active={activeItem === 'Меню1'}
               onClick={handleItemClick}
             />
             <Menu.Item
               name='Меню2'
-              active={activeItem === 'pics'}
+              active={activeItem === 'Меню2'}
               onClick={handleItemClick}
             />
             <Menu.Item
               name='Меню3'
-              active={activeItem === 'companies'}
+              active={activeItem === 'Меню3'}
               onClick={handleItemClick}
             />
             <Menu.Item
               name='Меню4'
-              active={activeItem === 'links'}
+              active={activeItem === 'Меню4'}
               onClick={handleItemClick}
             />
           </Menu>

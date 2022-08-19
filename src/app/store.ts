@@ -76,8 +76,9 @@ export const currentR1022Slice = createSlice({
 })
 export const { setCurrrentR1022 } = currentR1022Slice.actions
 
-const setCurrentR1022MW = (store: any) => (next: any) => (action: any) => {
+const myMDW = (store: any) => (next: any) => (action: any) => {
   const result = next(action)
+
   if(action.type == 'companiesThunk/fulfilled'){
     //console.log('Кладем текущий r1022 в глобальный стейт, чтобы сетать его при добавлении новой компании и обновлении текущего списка компаний по фильтру == r1022')
     store.dispatch(setCurrrentR1022(action.meta.arg))
@@ -114,14 +115,13 @@ export const deleteCompanyThunk = createAsyncThunk(
   }
 )
 
-
 export const store = configureStore({
   reducer: {
     subjects: subjectsSlice.reducer,
     companies: companiesSlice.reducer,
     currentR1022: currentR1022Slice.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(setCurrentR1022MW),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(myMDW),
 });
 
 export type AppDispatch = typeof store.dispatch;

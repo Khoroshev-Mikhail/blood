@@ -34,7 +34,6 @@ export default function MainTable(){
       setIdSelected(undefined)
     },[r1022])
 
-
     //Методы для рендеринга
     function addRow(){
       setLocalCompanies(state => [...state, test])
