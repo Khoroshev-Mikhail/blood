@@ -11,6 +11,7 @@ export default function SubjectsSearch(props){
 
     //Глобальный стейт
     const subjects = useAppSelector(state => state.subjects)
+    const r1022 = useAppSelector(state => state.currentR1022)
 
     //Локальный стейт
     const id = useId()
@@ -41,7 +42,7 @@ export default function SubjectsSearch(props){
                                 key={id + i} 
                                 onClick={()=>{
                                     dispatch(companiesThunk(el.p00))
-                                    setIsActive(el.p00)}} style={{background: isActive === el.p00 ? 'Gainsboro' : 'none', cursor: 'pointer'}
+                                    setIsActive(el.p00)}} style={{background: r1022 === el.p00 ? 'Gainsboro' : 'none', cursor: 'pointer'}
                                 }>
                                 <Table.Cell>
                                     {el.p01}

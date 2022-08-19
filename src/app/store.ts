@@ -1,7 +1,7 @@
 import { configureStore, ThunkAction, Action, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const subjectsThunk = createAsyncThunk(
-  'subjectThunk',
+  'subjectsThunk',
   async function (){
     const response = await fetch('http://localhost:3001/get_r1022')
     const data = await response.json()
@@ -78,7 +78,6 @@ export const { setCurrrentR1022 } = currentR1022Slice.actions
 
 const myMDW = (store: any) => (next: any) => (action: any) => {
   const result = next(action)
-
   if(action.type == 'companiesThunk/fulfilled'){
     //console.log('Кладем текущий r1022 в глобальный стейт, чтобы сетать его при добавлении новой компании и обновлении текущего списка компаний по фильтру == r1022')
     store.dispatch(setCurrrentR1022(action.meta.arg))
@@ -86,6 +85,11 @@ const myMDW = (store: any) => (next: any) => (action: any) => {
   if(action.type == 'setNewCompanyThunk/fulfilled' || action.type == 'deleteCompanyThunk/fulfilled' ){
     //console.log('Обновляем список компаний')
     store.dispatch(companiesThunk(store.getState().currentR1022))
+  }
+  if(action.type === 'subjectsThunk/fulfilled'){
+    //console.log('При подгрузке субъектов сразу же отображаем список копманий первого из них')
+    const firstSubject = store.getState().subjects[0].p00
+    store.dispatch(companiesThunk(firstSubject))
   }
   return result
 }

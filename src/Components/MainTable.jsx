@@ -43,7 +43,7 @@ export default function MainTable(){
             <Segment>
                 <Button onClick={() => {setVisible1(!visible1); setVisible2(false)}} className={visible1 ? 'ui active button' : ''}>Добавить</Button>
                 {idSelected && <Button onClick={() => {setVisible2(!visible2); setVisible1(false)}} className={visible2  ? 'ui active button' : ''}>Изменить</Button>}
-                {idSelected && <Button onClick={() => {dispatch(deleteCompanyThunk(idSelected))}} className="ui negative button">Удалить</Button>}
+                {idSelected && <Button onClick={() => {dispatch(deleteCompanyThunk(idSelected)); setVisible2(false)}} className="ui negative button">Удалить</Button>}
             </Segment>
 
             {visible1 && <AddNewCompany />}
