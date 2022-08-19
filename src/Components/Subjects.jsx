@@ -3,7 +3,7 @@ import { useEffect, useId, useState } from "react";
 import { Grid, Table } from "semantic-ui-react";
 import { Input } from 'semantic-ui-react'
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { companiesThunk, setCurrrentR1022, setCurrrentSubject } from "../app/store";
+import { companiesThunk } from "../app/store";
 
 export default function SubjectsSearch(props){
     const dispatch = useAppDispatch()

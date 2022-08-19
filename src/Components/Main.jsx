@@ -5,9 +5,11 @@ import SubjectsSearch from "./Subjects";
 
 export default function Main(){
     return (
-      <Grid>
-        <SubjectsSearch />
-        <MainTable />
-      </Grid>
+      <Grid.Column stretched width={15}>
+        <Grid>
+          <SubjectsSearch />
+          <MainTable />
+        </Grid>
+      </Grid.Column>
     );
 }

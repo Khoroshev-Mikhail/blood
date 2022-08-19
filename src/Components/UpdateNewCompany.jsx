@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { Grid, Segment } from "semantic-ui-react";
-import { Form, Input, TextArea,  Select } from 'semantic-ui-react'
+import { useState } from 'react';
+import { Segment } from "semantic-ui-react";
+import { Form, Input } from 'semantic-ui-react'
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { setNewCompanyThunk, subjectsThunk } from '../app/store';
+import { setNewCompanyThunk } from '../app/store';
 
 export default function UpdateNewCompany(props){
     //Глобальные методы

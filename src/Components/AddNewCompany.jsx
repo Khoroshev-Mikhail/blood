@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react';
-import { Grid, Segment } from "semantic-ui-react";
-import { Form, Input, TextArea,  Select } from 'semantic-ui-react'
+import { useState } from 'react';
+import {  Segment } from "semantic-ui-react";
+import { Form, Input } from 'semantic-ui-react'
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { setNewCompanyThunk, subjectsThunk } from '../app/store';
+import { setNewCompanyThunk } from '../app/store';
 
 export default function AddNewCompany(){
+    //Глобальные методы
     const dispatch = useAppDispatch()
+
+    //Глобальный стейт
     const r1022 = useAppSelector(state => state.currentR1022) //При загрузке компаний по текущему r1022 сетается в миддлевэйре
+
+    //Локальный стейт
     const [newCompany, setNewCompany] = useState({
         npp: 99,
         r1022: r1022,
@@ -22,6 +27,8 @@ export default function AddNewCompany(){
         alb_max: 0,
         alb_cena: 0,
     })
+
+    //Методы для рендеринга
     function onChangeInputs(e, {name, value}){
         setNewCompany(state => ({...state, [name] : value}))
     }
