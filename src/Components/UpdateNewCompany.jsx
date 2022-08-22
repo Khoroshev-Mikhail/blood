@@ -26,7 +26,6 @@ export default function UpdateNewCompany(props){
     function dispatchNewCompany(){
         dispatch(updateNewCompanyThunk(newCompany))
     }
-    console.log(newCompany)
     //currentCompany Может вернуться undefined и тогда ошибка. Хотя данная компонента не рендерится в условиях когда возвращается undefined
     if(! currentCompany){
         return(
