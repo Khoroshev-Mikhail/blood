@@ -36,7 +36,7 @@ export const companiesThunk = createAsyncThunk(
           body: JSON.stringify({r1022})
       })
       const data = await response.json()
-      return data
+      return data.sort((a: Company, b: Company) => a.naim_org.localeCompare(b.naim_org) )
   }
 )
 export type Company = {
