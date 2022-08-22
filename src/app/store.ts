@@ -30,11 +30,7 @@ export const subjectsSlice = createSlice({
 export const companiesThunk = createAsyncThunk(
   'companiesThunk',
   async function (r1022: number | string){ //Уточнить тип
-      const response = await fetch('http://localhost:3001/getCompanyBySubject', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json;charset=utf-8' }, 
-          body: JSON.stringify({r1022})
-      })
+      const response = await fetch(`http://localhost:3001/subjects/${r1022}`)
       const data = await response.json()
       return data.sort((a: Company, b: Company) => a.naim_org.localeCompare(b.naim_org) )
   }
@@ -82,7 +78,7 @@ const myMDW = (store: any) => (next: any) => (action: any) => {
     //console.log('Кладем текущий r1022 в глобальный стейт, чтобы сетать его при добавлении новой компании и обновлении текущего списка компаний по фильтру == r1022')
     store.dispatch(setCurrrentR1022(action.meta.arg))
   }
-  if(action.type == 'setNewCompanyThunk/fulfilled' || action.type == 'deleteCompanyThunk/fulfilled' ){
+  if(action.type == 'addCompanyThunk/fulfilled' || action.type == 'deleteCompanyThunk/fulfilled' || action.type == 'updateCompanyThunk/fulfilled' ){
     //console.log('Обновляем список компаний')
     store.dispatch(companiesThunk(store.getState().currentR1022))
   }
@@ -95,9 +91,9 @@ const myMDW = (store: any) => (next: any) => (action: any) => {
 }
 
 export const setNewCompanyThunk = createAsyncThunk(
-  'setNewCompanyThunk',
+  'addCompanyThunk',
   async function (newCompany: Company){ 
-      const response = await fetch('http://localhost:3001/setNewCompany', {
+      const response = await fetch('http://localhost:3001/addCompany', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json;charset=utf-8' }, 
           body: JSON.stringify({...newCompany})
@@ -107,10 +103,10 @@ export const setNewCompanyThunk = createAsyncThunk(
   }
 )
 export const updateNewCompanyThunk = createAsyncThunk(
-  'setNewCompanyThunk',
+  'updateCompanyThunk',
   async function (newCompany: Company){ 
       const response = await fetch('http://localhost:3001/updateCompany', {
-          method: 'POST',
+          method: 'PUT',
           headers: { 'Content-Type': 'application/json;charset=utf-8' }, 
           body: JSON.stringify({...newCompany})
       })
@@ -121,8 +117,9 @@ export const updateNewCompanyThunk = createAsyncThunk(
 export const deleteCompanyThunk = createAsyncThunk(
   'deleteCompanyThunk',
   async function (id: number){ 
+    console.log('tut')
       const response = await fetch('http://localhost:3001/deleteCompany', {
-          method: 'POST',
+          method: 'DELETE',
           headers: { 'Content-Type': 'application/json;charset=utf-8' }, 
           body: JSON.stringify({id})
       })
