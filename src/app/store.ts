@@ -106,6 +106,18 @@ export const setNewCompanyThunk = createAsyncThunk(
       return data
   }
 )
+export const updateNewCompanyThunk = createAsyncThunk(
+  'setNewCompanyThunk',
+  async function (newCompany: Company){ 
+      const response = await fetch('http://localhost:3001/updateCompany', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json;charset=utf-8' }, 
+          body: JSON.stringify({...newCompany})
+      })
+      const data = await response.json()
+      return data
+  }
+)
 export const deleteCompanyThunk = createAsyncThunk(
   'deleteCompanyThunk',
   async function (id: number){ 
