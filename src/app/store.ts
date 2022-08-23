@@ -3,7 +3,7 @@ import { configureStore, ThunkAction, Action, createAsyncThunk, createSlice, Pay
 export const subjectsThunk = createAsyncThunk(
   'subjectsThunk',
   async function (){
-    const response = await fetch('http://localhost:3001/get_r1022')
+    const response = await fetch('http://localhost:3001/subjects')
     const data = await response.json()
     return data
   }
@@ -30,7 +30,7 @@ export const subjectsSlice = createSlice({
 export const companiesThunk = createAsyncThunk(
   'companiesThunk',
   async function (r1022: number | string){ //Уточнить тип
-      const response = await fetch(`http://localhost:3001/subjects/${r1022}`)
+      const response = await fetch(`http://localhost:3001/companies/subjects/${r1022}`)
       const data = await response.json()
       return data.sort((a: Company, b: Company) => a.naim_org.localeCompare(b.naim_org) )
   }
